@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador | Hilos Míos</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #ECEBE6; padding: 30px; display: flex; justify-content: center; }
+        .panel { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 450px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        h2 { color: #2C2C2C; margin-bottom: 20px; font-size: 22px; text-align: center; }
+        label { display: block; margin-top: 15px; font-size: 14px; color: #555; font-weight: 500; }
+        input, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #DDD; border-radius: 10px; font-size: 14px; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; background: #6D8C60; color: white; border: none; border-radius: 10px; margin-top: 25px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        button:hover { background: #5A754E; }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h2>Modificar Catálogo</h2>
+        <form id="admin-form">
+            <label>Nombre del Producto</label>
+            <input type="text" id="titulo" placeholder="Ej: Almohadón Tusor" required>
+
+            <label>Descripción</label>
+            <textarea id="descripcion" placeholder="Detalles del hilado, tamaño..." rows="3" required></textarea>
+
+            <label>Precio ($)</label>
+            <input type="number" id="precio" placeholder="Ej: 24000" required>
+
+            <label>URL de la Imagen (Link de la foto)</label>
+            <input type="text" id="imagen" placeholder="Pega el enlace de la foto del producto" required>
+
+            <button type="submit">Publicar en la Web</button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyAjBcCNgJ9w4xn1NUepCNFxKHNPApBc7Gg",
+          authDomain: "web-hm-26d01.firebaseapp.com",
+          projectId: "web-hm-26d01",
+          storageBucket: "web-hm-26d01.firebasestorage.app",
+          messagingSenderId: "411959120061",
+          appId: "1:411959120061:web:a7fdb2eedbd477700227d4",
+          measurementId: "G-H30SWYLK5B"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById('admin-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                await addDoc(collection(db, "productos"), {
+                    titulo: document.getElementById('titulo').value,
+                    descripcion: document.getElementById('descripcion').value,
+                    precio: document.getElementById('precio').value,
+                    imagen: document.getElementById('imagen').value
+                });
+                alert("¡Producto subido con éxito!");
+                document.getElementById('admin-form').reset();
+            } catch (error) {
+                alert("Hubo un error al subir: " + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
