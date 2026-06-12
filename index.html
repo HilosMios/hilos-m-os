@@ -16,13 +16,13 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--fondo); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--texto-p); padding: 40px 20px; display: flex; justify-content: center; }
         .container { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 25px; }
-        .header-section { background: var(--tarjeta); padding: 35px; border-radius: 24px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.01); }
+        .header-section { background: var(--tarjeta); padding: 35px 25px; border-radius: 24px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.01); }
+        .brand-logo { width: 90px; height: 90px; object-fit: contain; margin-bottom: 15px; }
         .header-section h1 { font-family: 'Lora', serif; font-size: 32px; font-weight: 500; color: var(--texto-p); }
-        .header-section p { font-size: 13px; color: var(--texto-s); letter-spacing: 1px; margin-top: 5px; text-transform: uppercase; }
-        .bio-section { background: var(--tarjeta); padding: 30px; border-radius: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.01); }
-        .bio-section h2 { font-family: 'Lora', serif; font-size: 18px; color: var(--verde-seco); margin-bottom: 10px; font-weight: 500; }
-        .bio-section p { font-size: 14px; line-height: 1.6; color: #555; }
-        .catalogo-titulo { font-family: 'Lora', serif; font-size: 22px; font-weight: 500; margin-top: 10px; padding-left: 5px; }
+        .header-section p { font-size: 12px; color: var(--texto-s); letter-spacing: 1px; margin-top: 5px; text-transform: uppercase; }
+        .bio-section { background: var(--tarjeta); padding: 30px; border-radius: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.01); text-align: center; }
+        .bio-section p { font-family: 'Lora', serif; font-size: 15px; font-style: italic; line-height: 1.6; color: #555; }
+        .catalogo-titulo { font-family: 'Lora', serif; font-size: 22px; font-weight: 500; margin-top: 10px; padding-left: 5px; color: var(--texto-p); }
         .product-card { background: var(--tarjeta); border-radius: 24px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.01); }
         .product-image { width: 100%; height: 350px; object-fit: cover; background-color: #EAE8E3; display: flex; align-items: center; justify-content: center; color: #909090; font-size: 13px; }
         .product-info { padding: 25px; }
@@ -31,20 +31,19 @@
         .product-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #F4F3EF; padding-top: 15px; }
         .product-price { font-family: 'Lora', serif; font-size: 19px; font-weight: 500; }
         .btn-order { font-size: 13px; color: var(--verde-seco); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--verde-seco); }
-        footer { text-align: center; font-size: 11px; color: #A0A0A0; margin-top: 10px; }
+        footer { text-align: center; font-size: 11px; color: #A0A0A0; margin-top: 10px; padding-bottom: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header-section">
-            <div style="font-size: 35px; margin-bottom: 8px;">🍃</div>
+            <img src="HILOSMIOS_ISO VERDE.png" alt="Logo Hilos Míos" class="brand-logo">
             <h1>Hilos Míos</h1>
-            <p>Objetos conscientes para el hogar</p>
+            <p>Objetos de Hogar</p>
         </header>
 
         <section class="bio-section">
-            <h2>Nuestra Esencia</h2>
-            <p>Creamos piezas atemporales que transforman tu casa en un refugio cálido. Hilamos detalles con dedicación artesanal, buscando que cada estuche, cartuchera y almohadón aporte textura y tranquilidad a tu hogar.</p>
+            <p>“Todo lo que lleva cariño en su intención hace bien, regalá un regalo único de colecciones limitadas y un recuerdo que perdura”</p>
         </section>
 
         <h2 class="catalogo-titulo">Colección</h2>
@@ -69,7 +68,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Escuchar cambios en tiempo real de la base de datos
         onSnapshot(collection(db, "productos"), (snapshot) => {
             const container = document.getElementById('catalogo-container');
             container.innerHTML = "";
